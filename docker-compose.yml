@@ -2,59 +2,20 @@ services:
 
   nginx:
     build: _docker/nginx
+    container_name: laravel_nginx
     command: nginx -g "daemon off;"
-    container_name: first-task_nginx
     links:
       - php
     ports:
-      - "8091:80"
+      - "8090:80"
     volumes:
       - ./laravel/public:/var/www/html/laravel/public
   php:
     build: _docker/php
-    container_name: first-task_php
-
+    container_name: laravel_php
     volumes:
-      - ./laravel:/var/www/html/laravel
-    working_dir: /var/www/html/laravel
-
-    # nginx:
-    #   build: _docker/nginx
-    #   command: nginx -g "daemon off;"
-    #   links:
-    #     - php
-    #   ports:
-    #     - "80:80"
-    #   volumes:
-    #     - ./laravel:/var/www/html/laravel
-    #     - ./_docker/nginx/conf.d:/etc/nginx/conf.d
-    #     - ./_docker/nginx/ssl:/etc/nginx/ssl
-    # php:
-    #   build: _docker/php
-    #   volumes:
-    #     - ./laravel:/var/www/html/laravel
-    #     - ./_docker/php:/var/www/html
-    #   working_dir: /var/www/html/laravel/public
-
-    # nginx:
-    #   build: _docker/nginx
-    #   command: nginx -g "daemon off;"
-    #   links:
-    #     - php
-    #   ports:
-    #     - "80:80"
-    #   volumes:
-    #     - ./laravel/public:/var/www/html/laravel/public
-    # php:
-    #   build: _docker/php
-    #   volumes:
-    #     - ./laravel:/var/www/html
-    #     - ./_docker/php:/var/www/html
-    #   working_dir: /var/www/html/laravel/public
-
-    # volumes:
-    #   - ./_docker/php:/var/www/html
-    # working_dir: /var/www/html/laravel/public
+      - .:/var/www/html
+    working_dir: /var/www/html/laravel/public
 
     command: php-fpm
     links:
@@ -73,11 +34,10 @@ services:
       DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
-      MEMCACHED_HOST: cache
       CACHE_DRIVER: memcached
   db:
     image: mysql:8
-    container_name: first-task_db
+    container_name: laravel_db
     command: --default-authentication-plugin=mysql_native_password # needed as of mysql 8
     ports:
       - "3306:3306"
@@ -88,10 +48,10 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
   cache:
     image: memcached:1.6-alpine
-    container_name: first-task_cache
+    container_name: laravel_cache
   pma-leothai:
     image: phpmyadmin:latest
-    container_name: first-task_pma-leothai
+    container_name: laravel_pma-leothai
     restart: unless-stopped
     tty: true
     environment:
@@ -101,3 +61,108 @@ services:
       - "8091:80"
     links:
       - db
+
+
+# services:
+
+#   nginx:
+#     build: _docker/nginx
+#     command: nginx -g "daemon off;"
+#     container_name: first-task_nginx
+#     links:
+#       - php
+#     ports:
+#       - "8091:80"
+#     volumes:
+#       - ./laravel/public:/var/www/html/laravel/public
+#   php:
+#     build: _docker/php
+#     container_name: first-task_php
+
+#     volumes:
+#       - ./laravel:/var/www/html/laravel
+#     working_dir: /var/www/html/laravel
+
+#     # nginx:
+#     #   build: _docker/nginx
+#     #   command: nginx -g "daemon off;"
+#     #   links:
+#     #     - php
+#     #   ports:
+#     #     - "80:80"
+#     #   volumes:
+#     #     - ./laravel:/var/www/html/laravel
+#     #     - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+#     #     - ./_docker/nginx/ssl:/etc/nginx/ssl
+#     # php:
+#     #   build: _docker/php
+#     #   volumes:
+#     #     - ./laravel:/var/www/html/laravel
+#     #     - ./_docker/php:/var/www/html
+#     #   working_dir: /var/www/html/laravel/public
+
+#     # nginx:
+#     #   build: _docker/nginx
+#     #   command: nginx -g "daemon off;"
+#     #   links:
+#     #     - php
+#     #   ports:
+#     #     - "80:80"
+#     #   volumes:
+#     #     - ./laravel/public:/var/www/html/laravel/public
+#     # php:
+#     #   build: _docker/php
+#     #   volumes:
+#     #     - ./laravel:/var/www/html
+#     #     - ./_docker/php:/var/www/html
+#     #   working_dir: /var/www/html/laravel/public
+
+#     # volumes:
+#     #   - ./_docker/php:/var/www/html
+#     # working_dir: /var/www/html/laravel/public
+
+#     command: php-fpm
+#     links:
+#       - db
+#       - cache
+#     ports:
+#       - "9000:9000"
+#     environment:
+#       APP_ENV: local
+#       APP_DEBUG: 'true'
+#       APP_KEY: SomeRandomKey!!!
+#       APP_LOCALE: en
+#       APP_FALLBACK_LOCALE: en
+#       DB_CONNECTION: mysql
+#       DB_HOST: db
+#       DB_DATABASE: ${DB_DATABASE}
+#       DB_USERNAME: ${DB_USERNAME}
+#       DB_PASSWORD: ${DB_PASSWORD}
+#       MEMCACHED_HOST: cache
+#       CACHE_DRIVER: memcached
+#   db:
+#     image: mysql:8
+#     container_name: first-task_db
+#     command: --default-authentication-plugin=mysql_native_password # needed as of mysql 8
+#     ports:
+#       - "3306:3306"
+#     environment:
+#       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#       MYSQL_DATABASE: ${MYSQL_DATABASE}
+#       MYSQL_USER: ${MYSQL_USERNAME}
+#       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#   cache:
+#     image: memcached:1.6-alpine
+#     container_name: first-task_cache
+#   pma-leothai:
+#     image: phpmyadmin:latest
+#     container_name: first-task_pma-leothai
+#     restart: unless-stopped
+#     tty: true
+#     environment:
+#       # PMA_ARBITRARY: 1
+#       PMA_HOST: db
+#     ports:
+#       - "8091:80"
+#     links:
+#       - db
