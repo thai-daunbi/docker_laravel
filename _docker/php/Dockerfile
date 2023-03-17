@@ -1,5 +1,5 @@
 FROM php:8.1.9-fpm-alpine3.16
-# lumen packages
+# laravel packages
 RUN docker-php-ext-install mysqli pdo_mysql
 # memcached
 ENV MEMCACHED_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev
