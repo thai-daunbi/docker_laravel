@@ -20,22 +20,30 @@ Route::get('/', function () {
 Auth::routes();
 
 // group the following routes by auth middleware - you have to be signed-in to proceeed
-Route::group(['middleware' => 'auth'], function() {
-	// Dashboard
-	Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function () {
+    // Dashboard
+    Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
-	// Posts resourcfull controllers routes
-	Route::resource('posts', 'PostController');
+    // Posts resourcfull controllers routes
+    Route::resource('posts', 'App\Http\Controllers\PostController');
 
-	// Comments routes
-	Route::group(['prefix' => '/comments', 'as' => 'comments.'], function() {
+    // Comments routes
+    Route::prefix('/comments')->name('comments.')->group(function () {
         // store comment route
-		Route::post('/{post}', 'CommentController@store')->name('store');
-	});
+        Route::post('/{post}', 'App\Http\Controllers\CommentController@store')->name('store');
+    });
 
-	// Replies routes
-	Route::group(['prefix' => '/replies', 'as' => 'replies.'], function() {
+    // Replies routes
+    Route::prefix('/replies')->name('replies.')->group(function () {
         // store reply route
-		Route::post('/{comment}', 'ReplyController@store')->name('store');
-	});
+        Route::post('/{comment}', 'App\Http\Controllers\ReplyController@store')->name('store');
+    });
 });
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
