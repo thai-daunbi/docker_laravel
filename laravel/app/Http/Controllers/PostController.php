@@ -17,6 +17,7 @@ class PostController extends Controller
     {
         // view create form
         return view('posts.create');
+        // return response()->view('posts.create');
     }
 
     /**
@@ -41,6 +42,7 @@ class PostController extends Controller
         ]);
 
         // redirect to show post URL
+        // return response()->redirect($post->path());
         return redirect($post->path());
     }
 
@@ -92,6 +94,7 @@ class PostController extends Controller
         ]);
 
         // return to show post URL
+        // return response()->redirect($post->path());
         return redirect($post->path());
     }
 

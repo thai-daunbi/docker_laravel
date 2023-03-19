@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use HasFactory;
+    
     protected $table = 'posts';
 
     // columns to be allowed in mass-assingment 
@@ -34,5 +36,5 @@ class Post extends Model
     {
         return "/posts/{$this->id}";
     }
-    use HasFactory;
+    
 }

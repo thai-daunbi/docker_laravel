@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\Reply;
+use App\Models\Comment;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 
 class ReplyController extends Controller
