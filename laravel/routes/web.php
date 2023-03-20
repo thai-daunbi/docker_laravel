@@ -1,17 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ReplyController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,22 +14,22 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     // Dashboard
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Posts resourceful controller routes
-    Route::resource('posts', 'PostController');
+    Route::resource('posts', PostController::class);
 
     // Comments routes
     Route::prefix('/comments')->as('comments.')->group(function () {
         // store comment route
-        Route::post('/{post}', 'CommentController@store')->name('store');
+        Route::post('/{post}', [CommentController::class, 'store'])->name('store');
     });
 
     // Replies routes
     Route::prefix('/replies')->as('replies.')->group(function () {
         // store reply route
-        Route::post('/{comment}', 'ReplyController@store')->name('store');
+        Route::post('/{comment}', [ReplyController::class, 'store'])->name('store');
     });
 });
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
