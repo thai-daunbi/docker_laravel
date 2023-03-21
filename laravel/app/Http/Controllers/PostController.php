@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\PostImage;
 use Illuminate\Http\Request;
-use Auth;
-use Storage;
 
 class PostController extends Controller
 {
@@ -16,11 +13,6 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-
-    public function getAllPosts(){
-        $posts = Post::with('post_images') ->orderBy('crated_at', 'desc')->get();
-        return response()->json(['error'=>false, 'data' => $posts]);
-    }
     /**
      * Store a newly created resource in storage.
      *

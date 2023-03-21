@@ -35,11 +35,4 @@ class Post extends Model
     {
         return "/posts/{$this->id}";
     }
-
-    public function author(){
-        return $this->belongsTo('app\Models\User');
-    }
-    public function post_images(){
-        return $this->hasMany(('app\Models\PostImage'));
-    }
 }
