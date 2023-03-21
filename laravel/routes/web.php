@@ -30,12 +30,6 @@ Route::middleware(['auth'])->group(function () {
         // store reply route
         Route::post('/{comment}', [ReplyController::class, 'store'])->name('store');
     });
-    
-    // Custom post routes
-    Route::prefix('/posts')->as('posts.')->group(function () {
-        Route::get('get_all', [PostController::class, 'getAllPosts'])->name('get_all');
-        Route::post('create_post', [PostController::class, 'createPost'])->name('create_post');
-    });
 });
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
