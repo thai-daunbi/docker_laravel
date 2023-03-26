@@ -11,7 +11,7 @@ class Post extends Model
     protected $table = 'posts';
 
     // columns to be allowed in mass-assingment 
-    protected $fillable = ['user_id', 'title', 'body','image'];
+    protected $fillable = ['user_id', 'title', 'body'];
 
     /* Relations */
 
@@ -24,10 +24,6 @@ class Post extends Model
     public function comments()
     {
     	return $this->hasMany(Comment::class, 'post_id');
-    }
-
-    public function getImageAttribute(){
-        return $this->image;
     }
 
     /**
