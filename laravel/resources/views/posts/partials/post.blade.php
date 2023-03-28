@@ -16,6 +16,9 @@
     	{{ $post->body }}
     </p>
 
+    <img src="{{ asset($post->image) }}" class="w-60 h-60"alt="{{ asset($post->image) }}">
+
+
     {{-- include all comments related to this post --}}
     <hr>
     @include('posts.partials.comments')

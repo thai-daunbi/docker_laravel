@@ -51,6 +51,16 @@ class PostController extends Controller
         return view('posts.show')->with('post', $post);
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        return view('auth.home');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

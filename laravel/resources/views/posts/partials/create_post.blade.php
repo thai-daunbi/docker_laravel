@@ -31,6 +31,13 @@
         @if ($errors->has('body'))
             <small class="text-danger">{{ $errors->first('body') }}</small>
         @endif
+
+        <td class="px-6 py-4">
+            {{-- <img src="{{ $post->getFirstMediaUrl('images') }}" alt="no image"
+            class="w-12 h-12"> --}}
+            <img src="{{ asset($post->image) }}" alt="{{ asset($post->image) }}"
+                class="w-12 h-12">
+        </td>
     </div>
 
     <div class="form-group">
