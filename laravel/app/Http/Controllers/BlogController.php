@@ -16,7 +16,7 @@ class BlogController extends Controller
     {
         $posts = Post::all();
 
-        return view('partials.create_post', compact('posts'));
+        return view('posts.partials.create_post', compact('posts'));
     }
 
     /**
@@ -26,7 +26,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('partials.create_post');
+        return view('posts.partials.create_post');
     }
 
     /**
@@ -48,7 +48,7 @@ class BlogController extends Controller
         $image_path = 'uploads/' . $image_name;
         Image::make($data['image'])->resize(320, 240)->save(public_path($image_path));
         $data['image'] = $image_path;
-        $blog = Post::create($data);
+        $post = Post::create($data);
 
         return redirect()->route('blogs.index');
     }
@@ -56,12 +56,12 @@ class BlogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Blog  $blog
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        return view('posts.partials.show', compact('posts'));
     }
 
     /**
@@ -72,7 +72,7 @@ class BlogController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        return view('posts.edit', compact('posts'));
     }
 
     /**

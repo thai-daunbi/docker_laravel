@@ -1,4 +1,4 @@
-<form action="{{ route('posts.store') }}" method="post">
+<form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
     @csrf
 
     {{-- Post title --}}
@@ -31,18 +31,21 @@
         @if ($errors->has('body'))
             <small class="text-danger">{{ $errors->first('body') }}</small>
         @endif
-
-        <td class="px-6 py-4">
-            {{-- <img src="{{ $post->getFirstMediaUrl('images') }}" alt="no image"
-            class="w-12 h-12"> --}}
-            <img src="{{ asset($post->image) }}" alt="{{ asset($post->image) }}"
-                class="w-12 h-12">
-        </td>
     </div>
+    {{-- End --}}
+
+    {{-- Image upload --}}
+    <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" name="image" id="image" class="form-control-file">
+        @if ($errors->has('image'))
+            <small class="text-danger">{{ $errors->first('image') }}</small>
+        @endif
+    </div>
+    {{-- End --}}
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Save Post</button>
         <a href="{{ route('home') }}" class="btn btn-default">Back</a>
     </div>
-
 </form>
