@@ -35,13 +35,26 @@
     {{-- End --}}
 
     {{-- Image upload --}}
-    <div class="form-group">
+    <div class="mb-6">
+        <label class="block">
+            <span class="sr-only">Choose File</span>
+            <input type="file" name="image"
+                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+        </label>
+        @error('image')
+        <div class="flex items-center text-sm text-red-600">
+            {{ $message }}
+
+        </div>
+        @enderror
+    </div>
+    <!-- <div class="form-group">
         <label for="image">Image</label>
         <input type="file" name="image" id="image" class="form-control-file">
         @if ($errors->has('image'))
             <small class="text-danger">{{ $errors->first('image') }}</small>
         @endif
-    </div>
+    </div> -->
     {{-- End --}}
 
     <div class="form-group">

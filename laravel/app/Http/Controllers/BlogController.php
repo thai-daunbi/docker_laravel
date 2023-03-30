@@ -16,7 +16,7 @@ class BlogController extends Controller
     {
         $posts = Post::all();
 
-        return view('posts.partials.create_post', compact('posts'));
+        return view('posts.create', compact('posts'));
     }
 
     /**
@@ -26,7 +26,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('posts.partials.create_post');
+        return view('posts.create');
     }
 
     /**
@@ -48,9 +48,9 @@ class BlogController extends Controller
         $image_path = 'uploads/' . $image_name;
         Image::make($data['image'])->resize(320, 240)->save(public_path($image_path));
         $data['image'] = $image_path;
-        $post = Post::create($data);
+        $posts = Post::create($data);
 
-        return redirect()->route('blogs.index');
+        return redirect()->route('web');
     }
 
     /**
@@ -61,7 +61,7 @@ class BlogController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.partials.show', compact('posts'));
+        return view('posts.show', compact('posts'));
     }
 
     /**
