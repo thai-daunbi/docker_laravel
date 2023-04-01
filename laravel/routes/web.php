@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Posts resourceful controller routes
     Route::resource('posts', PostController::class);
+    
 
     // Comments routes
     Route::prefix('/comments')->as('comments.')->group(function () {

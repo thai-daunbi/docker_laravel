@@ -16,6 +16,15 @@
     	{{ $post->body }}
     </p>
 
+    <!-- <img src="{{ asset($post->image) }}" class="w-60 h-60"alt="{{ asset($post->image) }}"> -->
+    <!-- <img src="images/{{ Session::get('image') }}" class="mb-2" style="width:400px;height:200px;"> -->
+    <!-- <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;"> -->
+    <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;">
+
+
+
+
+
     {{-- include all comments related to this post --}}
     <hr>
     @include('posts.partials.comments')

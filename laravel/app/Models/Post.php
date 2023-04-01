@@ -11,7 +11,7 @@ class Post extends Model
     protected $table = 'posts';
 
     // columns to be allowed in mass-assingment 
-    protected $fillable = ['user_id', 'title', 'body'];
+    protected $fillable = ['user_id', 'title', 'body', 'image'];
 
     /* Relations */
 

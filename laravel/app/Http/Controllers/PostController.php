@@ -9,6 +9,9 @@ class PostController extends Controller
 {
     public function create()
     {
+        // phpinfo();
+        // exit;
+        
         // view create form
         return view('posts.create');
     }
@@ -21,21 +24,51 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // print_r(request()->title); echo"<br>";
+        // print_r(request()->body); echo"<br>";
+        // print_r(request()->image); echo"<br>";
+        // exit;
+
         // validate incoming request data with validation rules
         $this->validate(request(), [
             'title' => 'required|min:1|max:255',
-            'body'  => 'required|min:1|max:300'
+            'body'  => 'required|min:1|max:300',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         // store data with create() method
         $post = Post::create([
             'user_id'   => auth()->id(),
             'title'     => request()->title,
-            'body'      => request()->body
+            'body'      => request()->body,
         ]);
+        
+        if ($request->hasFile('image')) {
+            $post->image = $request->file('image');
+            $imageName = $request->file('image')->getClientOriginalName();
+            $request->image->move(public_path('images'), $imageName);
+            $post->save();
+        }
+
+
+        // $image_name = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+        // $image_path = 'uploads/' . $image_name;
+        // Image::make($request->file('image')->getRealPath())->resize(320, 240)->save(public_path($image_path));
+        // $post->image = $image_path;
+        // $post->save();
+
+        // $image_name = uniqid() . '.' . $this['image']->getClientOriginalExtension();
+        // $image_path = 'uploads/' . $image_name;
+        // Image::make($this['image'])->resize(320, 240)->save(public_path($image_path));
+        // $this['image'] = $image_path;
+        // $post = Post::create($this);
 
         // redirect to show post URL
-        return redirect($post->path());
+        // return redirect($post->path());
+        return redirect($post->path())->with([
+            'success' => 'You have successfully uploaded image.',
+            'image' => $imageName
+        ]);
     }
 
     /**
@@ -48,7 +81,19 @@ class PostController extends Controller
     {
         // we are using route model binding 
         // view show page with post data
+        // echo "<pre>"; print_r ($post); echo "</pre>";
+        // exit;
         return view('posts.show')->with('post', $post);
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        return view('auth.home');
     }
 
     /**
@@ -76,7 +121,8 @@ class PostController extends Controller
         // validate incoming request data with validation rules
         $this->validate(request(), [
             'title' => 'required|min:1|max:255',
-            'body'  => 'required|min:1|max:300'
+            'body'  => 'required|min:1|max:300',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         // update post with new data using update() method
@@ -84,6 +130,16 @@ class PostController extends Controller
             'title'     => request()->title,
             'body'      => request()->body
         ]);
+
+        if ($request->hasFile('image')) {
+            unlink(public_path($post->image));
+            $image = $request->file('image');
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $path = 'uploads/' . $filename;
+            Image::make($image->getRealPath())->resize(320, 240)->save(public_path($path));
+            $post->image = $path;
+            $post->save();
+        }
 
         // return to show post URL
         return redirect($post->path());
