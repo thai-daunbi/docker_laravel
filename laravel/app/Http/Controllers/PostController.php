@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-// use Image, File;
-use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
     public function create()
     {
-        phpinfo();
-        exit;
+        // phpinfo();
+        // exit;
+        
         // view create form
         return view('posts.create');
     }
@@ -47,11 +46,9 @@ class PostController extends Controller
         ]);
         
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = 'uploads/' . $filename;
-            Image::make($image->getRealPath())->resize(320, 240)->save(public_path($path));
-            $post->image = $path;
+            $post->image = $request->file('image');
+            $imageName = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('images'), $imageName);
             $post->save();
         }
 
