@@ -36,8 +36,6 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
-        
-
         // store data with create() method
         $post = Post::create([
             'user_id'   => auth()->id(),
@@ -47,7 +45,7 @@ class PostController extends Controller
         
         if ($request->hasFile('image')) {
             $post->image = $request->file('image');
-            $imageName = time().'.'.$request->image->extension();  
+            $imageName = $request->file('image')->getClientOriginalName();
             $request->image->move(public_path('images'), $imageName);
             $post->save();
         }
@@ -66,7 +64,11 @@ class PostController extends Controller
         // $post = Post::create($this);
 
         // redirect to show post URL
-        return redirect($post->path());
+        // return redirect($post->path());
+        return redirect($post->path())->with([
+            'success' => 'You have successfully uploaded image.',
+            'image' => $imageName
+        ]);
     }
 
     /**
@@ -79,6 +81,8 @@ class PostController extends Controller
     {
         // we are using route model binding 
         // view show page with post data
+        // echo "<pre>"; print_r ($post); echo "</pre>";
+        // exit;
         return view('posts.show')->with('post', $post);
     }
 
