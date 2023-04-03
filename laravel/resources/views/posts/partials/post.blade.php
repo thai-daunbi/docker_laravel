@@ -19,8 +19,16 @@
     <!-- <img src="{{ asset($post->image) }}" class="w-60 h-60"alt="{{ asset($post->image) }}"> -->
     <!-- <img src="images/{{ Session::get('image') }}" class="mb-2" style="width:400px;height:200px;"> -->
     <!-- <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;"> -->
-    <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;">
 
+    <!-- @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-2" role="alert">
+            {{ $message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;">
+
+    @endif -->
+    <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;">
 
 
 
