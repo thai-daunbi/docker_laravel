@@ -50,6 +50,7 @@ class PostController extends Controller
         //     $post->save();
         // }
         if ($request->hasFile('image')) {
+            $post->image = $request->file('image');
             $imageName = $request->file('image')->getClientOriginalName();
             $request->image->move(public_path('images'), $imageName);
             $post->image = $imageName;

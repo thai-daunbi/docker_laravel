@@ -46,7 +46,7 @@
 
             </div>
             @enderror
-            <img src="{{ asset($partials->image) }}" class="w-12 h-12" alt="{{ asset($partials->image) }}">
+            <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;">
         </div>
     </div>
 
