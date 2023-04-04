@@ -28,7 +28,7 @@
         <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;">
 
     @endif -->
-    <img src="{{ asset('images/' . Session::get('image')) }}" class="mb-2" style="width:400px;height:200px;">
+    <img src="{{ asset('images/' . $post->image) }}" class="mb-2" style="width:400px;height:200px;">
 
 
 
