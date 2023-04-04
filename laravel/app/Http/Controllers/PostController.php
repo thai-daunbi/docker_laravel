@@ -43,13 +43,19 @@ class PostController extends Controller
             'body'      => request()->body,
         ]);
         
+        // if ($request->hasFile('image')) {
+        //     $post->image = $request->file('image');
+        //     $imageName = $request->file('image')->getClientOriginalName();
+        //     $request->image->move(public_path('images'), $imageName);
+        //     $post->save();
+        // }
         if ($request->hasFile('image')) {
             $post->image = $request->file('image');
             $imageName = $request->file('image')->getClientOriginalName();
             $request->image->move(public_path('images'), $imageName);
+            $post->image = $imageName;
             $post->save();
         }
-
 
         // $image_name = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
         // $image_path = 'uploads/' . $image_name;
@@ -132,12 +138,10 @@ class PostController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            unlink(public_path($post->image));
-            $image = $request->file('image');
-            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-            $path = 'uploads/' . $filename;
-            Image::make($image->getRealPath())->resize(320, 240)->save(public_path($path));
-            $post->image = $path;
+            $post->image = $request->file('image');
+            $imageName = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('uploads'), $imageName);
+            $post->image = 'uploads/' . $imageName;
             $post->save();
         }
 
