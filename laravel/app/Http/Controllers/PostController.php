@@ -43,12 +43,7 @@ class PostController extends Controller
             'body'      => request()->body,
         ]);
         
-        // if ($request->hasFile('image')) {
-        //     $post->image = $request->file('image');
-        //     $imageName = $request->file('image')->getClientOriginalName();
-        //     $request->image->move(public_path('images'), $imageName);
-        //     $post->save();
-        // }
+        
         if ($request->hasFile('image')) {
             $post->image = $request->file('image');
             $imageName = $request->file('image')->getClientOriginalName();
@@ -56,18 +51,6 @@ class PostController extends Controller
             $post->image = $imageName;
             $post->save();
         }
-
-        // $image_name = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-        // $image_path = 'uploads/' . $image_name;
-        // Image::make($request->file('image')->getRealPath())->resize(320, 240)->save(public_path($image_path));
-        // $post->image = $image_path;
-        // $post->save();
-
-        // $image_name = uniqid() . '.' . $this['image']->getClientOriginalExtension();
-        // $image_path = 'uploads/' . $image_name;
-        // Image::make($this['image'])->resize(320, 240)->save(public_path($image_path));
-        // $this['image'] = $image_path;
-        // $post = Post::create($this);
 
         // redirect to show post URL
         // return redirect($post->path());
