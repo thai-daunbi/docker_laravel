@@ -17,9 +17,9 @@
     </p>
 
     <img src="{{ asset('images/' . $post->image) }}" class="mb-2" style="width:400px;height:200px;">
-
-
-
+    
+    <like-component :blog="{{ $post->id }}"></like-component>
+    <dislike-component :blog="{{ $post->id }}"></dislike-component>
 
     {{-- include all comments related to this post --}}
     <hr>
