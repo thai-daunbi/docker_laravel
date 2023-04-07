@@ -142,42 +142,4 @@ class PostController extends Controller
     {
         //
     }
-
-    public function fetchLike(Request $request)
-    {
-        $post = Post::find($request->filterPrecognitiveRules);
-        return response()->json([
-            'filterPrecognitiveRules' => $post,
-        ]);
-    }
- 
-    public function handleLike(Request $request)
-    {
-        $post = Post::find($request->id);
-        $value = $post->like;
-        $post->like = $value+1;
-        $post->save();
-        return response()->json([
-            'message' => 'Liked',
-        ]);
-    }    
- 
-    public function fetchDislike(Request $request)
-    {
-        $post = Post::find($request->id);
-        return response()->json([
-            'post' => $post,
-        ]);
-    }
- 
-    public function handleDislike(Request $request)
-    {
-        $post = Post::find($request->id);
-        $value = $post->dislike;
-        $post->dislike = $value+1;
-        $post->save();
-        return response()->json([
-            'message' => 'Disliked',
-        ]);
-    }
 }

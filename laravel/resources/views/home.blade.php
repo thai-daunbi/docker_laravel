@@ -24,8 +24,6 @@
 
                     <small href="{{ route('posts.show', $post->id) }}">{{ Illuminate\Support\Str::limit($post->body, 10) }}</small><br>
 
-                    <a href="{{ route('blog', $data->post_slug) }}"><li>{{ $data->post_title }}</li></a>
-                        
 
                         {{-- post owner --}}
                         <small class="float-left">By: {{ $post->owner->name }}</small><br>
