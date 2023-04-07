@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -58,8 +59,30 @@ class PostController extends Controller
             'success' => 'You have successfully uploaded image.',
             'image' => $imageName
         ]);
-    }
 
+        $like = new Like([
+            'user_id' => auth()->id(),
+            'likeable_type' => 'App\Models\Post', // set the likeable_type attribute
+        ]);
+        $post->likes()->save($like);
+
+        return redirect()->route('post.show', $post);
+    }
+    // public function like(Post $post)
+    // {
+    //     $like = $post->likes()->where('user_id', auth()->id())->first();
+
+    //     if ($like) {
+    //         $like->delete();
+    //     } else {
+    //         $like = new Like([
+    //             'user_id' => auth()->id(),
+    //         ]);
+    //         $post->likes()->save($like);
+    //     }
+
+    //     return back();
+    // }
     /**
      * Display the specified resource.
      *

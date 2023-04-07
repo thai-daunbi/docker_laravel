@@ -33,4 +33,9 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+Route::middleware('auth')->group(function () {
+    Route::post('like', 'LikeController@like')->name('like');
+    Route::delete('like', 'LikeController@unlike')->name('unlike');
+});
+
 // Route::get('/home', [HomeController::class, 'index'])->name('home');

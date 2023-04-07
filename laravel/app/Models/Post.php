@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Contracts\Likeable;
+use App\Models\Concerns\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Post extends Model implements Likeable
 {
     use HasFactory;
     protected $table = 'posts';
@@ -13,6 +15,16 @@ class Post extends Model
     // columns to be allowed in mass-assingment 
     protected $fillable = ['user_id', 'title', 'body', 'image'];
 
+
+    public function likes(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+
+    public function likeByUser($user_id): bool
+    {
+        return (bool) $this->likes()->where('user_id', $user_id)->count();
+    }
     /* Relations */
 
     // One to many inverse relationship with User model
