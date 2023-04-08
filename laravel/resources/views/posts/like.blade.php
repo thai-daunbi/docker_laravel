@@ -1,7 +1,7 @@
-{{ trans_choice('{0} no like|{1} :count like|[2,*] :count likes', count($model->likes), ['count' => count($model->likes)]) }}
+<br>{{ trans_choice('{0} no like|{1} :count like|[2,*] :count likes', count($model->likes), ['count' => count($model->likes)]) }}
 
 @can('like', $model)
-    <form action="{{ route('like') }}" method="POST">
+    <form action="{{ route('like') }}" method="POST" class="display">
         @csrf
         <input type="hidden" name="likeable_type" value="{{ get_class($model) }}"/>
         <input type="hidden" name="id" value="{{ $model->id }}"/>
