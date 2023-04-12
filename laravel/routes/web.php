@@ -34,9 +34,12 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+<<<<<<< HEAD
 Route::middleware('auth')->group(function () {
     Route::post('like', 'PostController@like')->name('like');
     Route::delete('like', 'PostController@unlike')->name('unlike');
 });
 
+=======
+>>>>>>> parent of 3e2d5c1 (Errors for new code)
 // Route::get('/home', [HomeController::class, 'index'])->name('home');

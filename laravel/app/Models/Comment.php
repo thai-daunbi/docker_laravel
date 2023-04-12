@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Contracts\Likeable;
-use App\Models\Concerns\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

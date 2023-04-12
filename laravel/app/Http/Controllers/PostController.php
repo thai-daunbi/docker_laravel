@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\LikeRequest;
@@ -60,12 +59,18 @@ class PostController extends Controller
         return redirect($post->path())->with([
             'success' => 'You have successfully uploaded image.',
             'image' => $imageName
+<<<<<<< HEAD
         ]);        
 
         return redirect()->route('post.show', $post);
     }
 
 
+=======
+        ]);
+    }
+
+>>>>>>> parent of 3e2d5c1 (Errors for new code)
     /**
      * Display the specified resource.
      *

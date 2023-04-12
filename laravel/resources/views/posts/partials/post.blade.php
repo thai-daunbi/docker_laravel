@@ -18,8 +18,6 @@
 
     <img src="{{ asset('images/' . $post->image) }}" class="mb-2" style="width:400px;height:200px;">
 
-    @include('posts.like', ['model' => $post])
-
 
 
 
