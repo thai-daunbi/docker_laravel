@@ -60,17 +60,43 @@ class PostController extends Controller
             'success' => 'You have successfully uploaded image.',
             'image' => $imageName
 <<<<<<< HEAD
+<<<<<<< HEAD
         ]);        
+=======
+        ]);
+
+        $like = new Like([
+            'user_id' => auth()->id(),
+            'likeable_type' => 'App\Models\Post', // set the likeable_type attribute
+        ]);
+        $post->likes()->save($like);
+>>>>>>> parent of 22577d2 (error(does not exist))
 
         return redirect()->route('post.show', $post);
     }
+    // public function like(Post $post)
+    // {
+    //     $like = $post->likes()->where('user_id', auth()->id())->first();
 
+    //     if ($like) {
+    //         $like->delete();
+    //     } else {
+    //         $like = new Like([
+    //             'user_id' => auth()->id(),
+    //         ]);
+    //         $post->likes()->save($like);
+    //     }
 
+<<<<<<< HEAD
 =======
         ]);
     }
 
 >>>>>>> parent of 3e2d5c1 (Errors for new code)
+=======
+    //     return back();
+    // }
+>>>>>>> parent of 22577d2 (error(does not exist))
     /**
      * Display the specified resource.
      *
@@ -152,31 +178,5 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
-    }
-
-    public function like(LikeRequest $request)
-    {
-        $request->user()->like($request->likeable());
-
-        if ($request->ajax()) {
-            return response()->json([
-                'likes' => $request->likeable()->likes()->count(),
-            ]);
-        }
-
-        return redirect()->back();
-    }
-
-    public function unlike(UnlikeRequest $request)
-    {
-        $request->user()->unlike($request->likeable());
-
-        if ($request->ajax()) {
-            return response()->json([
-                'likes' => $request->likeable()->likes()->count(),
-            ]);
-        }
-
-        return redirect()->back();
     }
 }
