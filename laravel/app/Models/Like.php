@@ -15,11 +15,6 @@ class Like extends Model
         'likeable_type'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class)->withDefault();
-    }
-
     public function likeable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
         return $this->morphTo();

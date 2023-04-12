@@ -6,7 +6,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ReplyController;
 
-
 Route::get('/', function () {
     return view('welcome');
 });
