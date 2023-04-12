@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use App\Http\Requests\LikeRequest;
-use App\Http\Requests\UnlikeRequest;
 
 class PostController extends Controller
 {
