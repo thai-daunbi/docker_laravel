@@ -18,13 +18,18 @@ Route::middleware(['auth'])->group(function () {
 
     // Posts resourceful controller routes
     Route::resource('posts', PostController::class);
-    
 
     // Comments routes
     Route::prefix('/comments')->as('comments.')->group(function () {
         // store comment route
         Route::post('/{post}', [CommentController::class, 'store'])->name('store');
     });
+
+    Route::post('/like', [PostController::class, 'fetchLike']);
+    Route::post('/like/{id}', [PostController::class, 'handleLike']);
+    
+    Route::post('/dislike', [PostController::class, 'fetchDislike']);
+    Route::post('/dislike/{id}', [PostController::class, 'handleDislike']);
 
     // Replies routes
     Route::prefix('/replies')->as('replies.')->group(function () {
@@ -33,12 +38,4 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-<<<<<<< HEAD
-Route::middleware('auth')->group(function () {
-    Route::post('like', 'LikeController@like')->name('like');
-    Route::delete('like', 'LikeController@unlike')->name('unlike');
-});
-
-=======
->>>>>>> parent of 3e2d5c1 (Errors for new code)
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
