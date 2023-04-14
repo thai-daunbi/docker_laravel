@@ -179,4 +179,23 @@ class PostController extends Controller
             'message' => 'Disliked',
         ]);
     }
+
+    public function likeDislikePost(Request $request)
+    {
+        $post = Post::find($request->id);
+        if (!$post) {
+            return response()->json(['status' => false, 'message' => 'Post not found']);
+        }
+
+        if ($request->type == 'like') {
+            $post->likes++;
+        } elseif ($request->type == 'dislike') {
+            $post->dislikes++;
+        } else {
+            return response()->json(['status' => false, 'message' => 'Invalid type']);
+        }
+
+        $post->save();
+        return response()->json(['status' => true, 'message' => 'Post updated successfully']);
+    }
 }

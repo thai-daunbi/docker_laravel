@@ -31,6 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dislike', [PostController::class, 'fetchDislike']);
     Route::post('/dislike/{id}', [PostController::class, 'handleDislike']);
 
+    Route::post('/like-dislike-post', [PostController::class, 'likeDislikePost'])->name('like.dislike.post');
+
+
     // Replies routes
     Route::prefix('/replies')->as('replies.')->group(function () {
         // store reply route
