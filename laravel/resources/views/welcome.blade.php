@@ -100,6 +100,12 @@
                         </div>
                     </div>
                 </div>
+                <div id="app">
+                    <like-dislike></like-dislike>
+                </div>
+
+                <script src="{{ asset('js/app.js') }}"></script>
+
 
                 <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 sm:text-left">
