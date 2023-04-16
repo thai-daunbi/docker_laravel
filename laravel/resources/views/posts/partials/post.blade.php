@@ -19,10 +19,10 @@
     <img src="{{ asset('images/' . $post->image) }}" class="mb-2" style="width:400px;height:200px;">
 
 
-    <like-component :post="{{ $post->id }}"></like-component>
-    <dislike-component :post="{{ $post->id }}"></dislike-component>
+    <!-- <like-component :post="{{ $post->id }}"></like-component>
+    <dislike-component :post="{{ $post->id }}"></dislike-component> -->
 
-    <!-- <div class="col-md-6">
+    <div class="col-md-6">
         <button class="like-btn btn btn-primary" data-id="{{ $post->id }}" >
             <i class="far fa-thumbs-up"></i>
             <span class="likes">{{ $post->likes }}</span>
@@ -31,7 +31,7 @@
             <i class="far fa-thumbs-down"></i>
             <span class="dislikes">{{ $post->dislikes }}</span>
         </button>
-    </div> -->
+    </div>
     {{-- include all comments related to this post --}}
     <hr>
     @include('posts.partials.comments')

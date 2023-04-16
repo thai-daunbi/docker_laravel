@@ -1,43 +1,19 @@
 <template>
-    <div class="container">
-        <div id="success" class="mb-3"></div>
-        <a style="cursor: pointer" @click.prevent="likeBlog">
-            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-            ({{ alllikes }})
-        </a>
+    <div>
+        <button class="btn btn-primary" @click="likePost">
+            <i class="fa fa-thumbs-up"></i>
+            <span class="likes">{{ post.likes }}</span>
+        </button>
     </div>
 </template>
+
 <script>
-    export default {
-        props: ['blog'],
-        data() {
-            return {
-                alllikes: '',
-            }
+export default {
+    props: ['post'],
+    methods: {
+        likePost() {
+            this.$emit('like', this.post.id, 'like');
         },
-        methods: {
-            likeBlog() {
-                axios.post('/like/' + this.blog, {
-                        blog: this.blog
-                    })
-                    .then(res => {
-                        this.renderLike()
-                        $('#success').html(res.data.message)
-                    })
-                    .catch()
-            },
-            renderLike() {
-                axios.post('/like', {
-                        blog: this.blog
-                    })
-                    .then(res => {
-                        console.log(res.data.blog.like)
-                        this.alllikes = res.data.blog.like
-                    })
-            }
-        },
-        mounted() {
-            this.renderLike()
-        }
-    }
+    },
+};
 </script>
