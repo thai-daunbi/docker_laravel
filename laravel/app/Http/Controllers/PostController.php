@@ -198,4 +198,43 @@ class PostController extends Controller
         $post->save();
         return response()->json(['status' => true, 'message' => 'Post updated successfully']);
     }
+    public function like(Request $request)
+    {
+        $user = $request->user();
+        $post_id = $request->input('post_id');
+        $type = $request->input('type');
+
+        // 해당 포스트에 대해 사용자가 이미 좋아요/싫어요를 했는지 확인
+        $like = Like::where('user_id', $user->id)
+            ->where('post_id', $post_id)
+            ->first();
+
+        // 좋아요/싫어요를 처음 누른 경우
+        if (!$like) {
+            $like = new Like;
+            $like->user_id = $user->id;
+            $like->post_id = $post_id;
+            $like->type = $type;
+            $like->save();
+
+            if ($type == 'like') {
+                $message = 'Liked!';
+            } else {
+                $message = 'Disliked!';
+            }
+        }
+        // 이미 좋아요/싫어요를 누른 경우
+        else{
+            // 이미 누른 버튼을 다시 누른 경우
+            if ($like->type == $type) {
+                $like->delete();
+
+                if ($type == 'like') {
+                    $message = 'Unliked!';
+                } else {
+                    $message = 'Undisliked!';
+                }
+            }
+        }
+    }
 }
