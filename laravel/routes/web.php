@@ -25,13 +25,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/{post}', [CommentController::class, 'store'])->name('store');
     });
 
-    Route::post('/like', [PostController::class, 'fetchLike']);
-    Route::post('/like/{id}', [PostController::class, 'handleLike']);
+    // Route::post('/like', [PostController::class, 'fetchLike']);
+    // Route::post('/like/{id}', [PostController::class, 'handleLike']);
     
-    Route::post('/dislike', [PostController::class, 'fetchDislike']);
-    Route::post('/dislike/{id}', [PostController::class, 'handleDislike']);
+    // Route::post('/dislike', [PostController::class, 'fetchDislike']);
+    // Route::post('/dislike/{id}', [PostController::class, 'handleDislike']);
 
-    Route::post('/like-dislike-post', [PostController::class, 'likeDislikePost'])->name('like.dislike.post');
+    // Route::post('/like-dislike-post', [PostController::class, 'likeDislikePost'])->name('like.dislike.post');
+
+    Route::post('/like', 'PostController@store')->name('like.store');
+
 
 
     // Replies routes

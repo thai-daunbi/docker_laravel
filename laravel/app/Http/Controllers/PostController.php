@@ -58,6 +58,16 @@ class PostController extends Controller
             'success' => 'You have successfully uploaded image.',
             'image' => $imageName
         ]);
+
+        $postId = $request->input('postId');
+        $likeType = $request->input('likeType');
+
+        $like = new Like;
+        $like->post_id = $postId;
+        $like->type = $likeType;
+        $like->save();
+
+        return response()->json(['success' => true]);
     }
 
     /**
