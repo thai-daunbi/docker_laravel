@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import 'bootstrap';
 
+=======
+>>>>>>> parent of e8b561e (finish change laravel)
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
